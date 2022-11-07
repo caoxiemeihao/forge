@@ -31,12 +31,10 @@ export const initNPM = async (dir: string, task: ForgeListrTask<any>): Promise<v
 
   d('installing exact devDependencies');
 
-  await Promise.all(
-    exactDevDeps.map(async (packageName) => {
-      task.output = `${packageManager} install --dev --exact ${packageName}`;
-      await installDepList(dir, [packageName], DepType.DEV, DepVersionRestriction.EXACT);
-    })
-  );
+  for (const packageName of exactDevDeps) {
+    task.output = `${packageManager} install --dev --exact ${packageName}`;
+    await installDepList(dir, [packageName], DepType.DEV, DepVersionRestriction.EXACT);
+  }
 
   // This logic allows developers working on forge itself to easily init
   // a local template and have it use their local plugins / core / cli packages

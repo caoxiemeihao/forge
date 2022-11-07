@@ -73,11 +73,9 @@ export default class PluginInterface implements IForgePluginInterface {
         let hooks = plugin.getHooks()[hookName] as ForgeSimpleHookFn<Hook>[] | ForgeSimpleHookFn<Hook>;
         if (hooks) {
           if (typeof hooks === 'function') hooks = [hooks];
-          await Promise.all(
-            hooks.map(async (hook) => {
-              await hook(this.config, ...hookArgs);
-            })
-          );
+          for (const hook of hooks) {
+            await hook(this.config, ...hookArgs);
+          }
         }
       }
     }
@@ -94,22 +92,20 @@ export default class PluginInterface implements IForgePluginInterface {
         let hooks = plugin.getHooks()[hookName] as ForgeSimpleHookFn<Hook>[] | ForgeSimpleHookFn<Hook>;
         if (hooks) {
           if (typeof hooks === 'function') hooks = [hooks];
-          await Promise.all(
-            hooks.map((hook) => {
-              tasks.push({
-                title: `${chalk.cyan(`[plugin-${plugin.name}]`)} ${(hook as any).__hookName || `Running ${chalk.yellow(hookName)} hook`}`,
-                task: async (_, task) => {
-                  if ((hook as any).__hookName) {
-                    // Also give it the task
-                    await (hook as any).call(task, ...(hookArgs as any[]));
-                  } else {
-                    await hook(this.config, ...hookArgs);
-                  }
-                },
-                options: {},
-              });
-            })
-          );
+          for (const hook of hooks) {
+            tasks.push({
+              title: `${chalk.cyan(`[plugin-${plugin.name}]`)} ${(hook as any).__hookName || `Running ${chalk.yellow(hookName)} hook`}`,
+              task: async (_, task) => {
+                if ((hook as any).__hookName) {
+                  // Also give it the task
+                  await (hook as any).call(task, ...(hookArgs as any[]));
+                } else {
+                  await hook(this.config, ...hookArgs);
+                }
+              },
+              options: {},
+            });
+          }
         }
       }
     }
