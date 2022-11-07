@@ -206,9 +206,11 @@ export const listrPackage = ({
             },
             async (buildPath, electronVersion, pPlatform, pArch, done) => {
               const bins = await glob(path.join(buildPath, '**/.bin/**/*'));
-              for (const bin of bins) {
-                await fs.remove(bin);
-              }
+              await Promise.all(
+                bins.map(async (bin) => {
+                  await fs.remove(bin);
+                })
+              );
               done();
             },
             async (buildPath, electronVersion, pPlatform, pArch, done) => {
