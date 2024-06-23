@@ -14,6 +14,9 @@
   "scripts": {
     "test": "xvfb-maybe mocha --config ../../../.mocharc.js test/**/*_spec.ts test/*_spec.ts"
   },
+  "peerDependencies": {
+    "vite": ">= 4.0.0"
+  },
   "dependencies": {
     "@electron-forge/core-utils": "7.4.0",
     "@electron-forge/plugin-base": "7.4.0",
