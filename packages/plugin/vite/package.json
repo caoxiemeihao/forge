@@ -19,11 +19,15 @@
     "@electron-forge/plugin-base": "7.4.0",
     "@electron-forge/shared-types": "7.4.0",
     "@electron-forge/web-multi-logger": "7.4.0",
+    "@vercel/webpack-asset-relocator-loader": "1.7.3",
     "chalk": "^4.0.0",
     "debug": "^4.3.1",
-    "flora-colossus": "^2.0.0",
+    "fast-glob": "^3.2.7",
     "fs-extra": "^10.0.0",
-    "listr2": "^7.0.2"
+    "lib-esm": "^0.4.2",
+    "listr2": "^7.0.2",
+    "node-loader": "^2.0.0",
+    "webpack": "^5.69.1"
   },
   "devDependencies": {
     "@electron/packager": "^18.3.1",

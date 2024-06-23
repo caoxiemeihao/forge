@@ -1,6 +1,7 @@
 // eslint-disable-next-line node/no-unpublished-import
 import { type ConfigEnv, mergeConfig, type UserConfig } from 'vite';
 
+import { natives } from './plugins';
 import { external, getBuildConfig, pluginHotRestart } from './vite.base.config';
 
 export function getConfig(forgeEnv: ConfigEnv<'build'>): UserConfig {
@@ -21,7 +22,7 @@ export function getConfig(forgeEnv: ConfigEnv<'build'>): UserConfig {
         },
       },
     },
-    plugins: [pluginHotRestart('reload')],
+    plugins: [natives(), pluginHotRestart('reload')],
   };
 
   return mergeConfig(getBuildConfig(forgeEnv), config);
